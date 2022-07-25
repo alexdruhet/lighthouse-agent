@@ -1,0 +1,24 @@
+{
+  "name": "quality-inspector",
+  "version": "0.1.0",
+  "description": "A quality inspection service built with spotify/lighthouse-audit-service.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexdruhet/quality-inspector.git"
+  },
+  "author": "Alex Druhet <alex@listo.studio>",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@spotify/lighthouse-audit-service": "^2.0.0",
+    "dotenv": "^16.0.1"
+  },
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "engines": {
+    "node": ">=16.15"
+  }
+}

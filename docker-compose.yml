@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: ${PGDATABASE}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+    ports:
+      - target: 5432
+        published: ${PGPORT}
+        protocol: tcp
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+    labels:
+      - "traefik.enable=false"
+
+volumes:
+  db-data: {}
