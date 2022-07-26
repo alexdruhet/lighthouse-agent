@@ -11,8 +11,14 @@ let pgConf = {
   port: process.env.PGPORT,
   host: process.env.PGHOST,
 };
+
 if (process.env.DATABASE_URL) {
-  pgConf.ssl = { rejectUnauthorized: false };
+  pgConf = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  };
 }
 
 passport.use(
