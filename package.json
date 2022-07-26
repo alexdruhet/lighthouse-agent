@@ -1,11 +1,11 @@
 {
-  "name": "quality-inspector",
+  "name": "lighthouse-agent",
   "version": "0.1.0",
   "description": "A quality inspection service built with spotify/lighthouse-audit-service.",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexdruhet/quality-inspector.git"
+    "url": "git+https://github.com/alexdruhet/lighthouse-agent.git"
   },
   "author": "Alex Druhet <alex@listo.studio>",
   "license": "Apache-2.0",
@@ -13,10 +13,12 @@
   "type": "module",
   "dependencies": {
     "@spotify/lighthouse-audit-service": "^2.0.0",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "passport": "^0.6.0",
+    "passport-http-bearer": "^1.0.1"
   },
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "node ./src/server.js"
   },
   "engines": {
     "node": ">=16.15"
