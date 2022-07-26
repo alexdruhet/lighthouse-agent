@@ -13,7 +13,7 @@ let pgConf = {
   host: process.env.PGHOST,
 };
 if (process.env.DATABASE_URL) {
-  pgConf.ssl = true;
+  pgConf.ssl = { rejectUnauthorized: false };
 }
 const { Pool } = pkg;
 const conn = new Pool(pgConf);
