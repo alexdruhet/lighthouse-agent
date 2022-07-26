@@ -15,6 +15,7 @@ let pgConf = {
 if (process.env.DATABASE_URL) {
   pgConf = {
     connectionString: process.env.DATABASE_URL,
+    sslmode: "require",
     ssl: {
       rejectUnauthorized: false,
     },
