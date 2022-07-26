@@ -13,7 +13,7 @@ let pgConf = {
   host: process.env.PGHOST,
 };
 if (process.env.DATABASE_URL) {
-  pgConf.ssl = { rejectUnauthorized };
+  pgConf.ssl = { rejectUnauthorized: false };
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 }
 const { Pool } = pkg;
@@ -40,4 +40,4 @@ lasApp.use(passport.authenticate("bearer", { session: false }));
 lasApp.listen(process.env.LAS_PORT, () => {
   console.log(`Lightouse agent listening on port ${process.env.LAS_PORT}`);
 });
-rejectUnauthorized
+rejectUnauthorized;
