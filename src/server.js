@@ -39,6 +39,8 @@ const lasApp = await getApp({ postgresConfig: pgConf });
 
 lasApp.use(passport.authenticate("bearer", { session: false }));
 
-lasApp.listen(process.env.LAS_PORT, () => {
+const PORT = process.env.PORT || process.env.LAS_PORT;
+
+lasApp.listen(PORT, () => {
   console.log(`Lightouse agent listening on port ${process.env.LAS_PORT}`);
 });
