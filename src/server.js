@@ -11,7 +11,7 @@ let pgConf = {
   port: process.env.PGPORT,
   host: process.env.PGHOST,
 };
-
+// Alter db config for Heroku env
 if (process.env.DATABASE_URL) {
   pgConf = {
     connectionString: process.env.DATABASE_URL,
@@ -21,6 +21,10 @@ if (process.env.DATABASE_URL) {
   };
 }
 
+const lasApp = await getApp({ postgresConfig: pgConf });
+
+// @TODO: fix authentication strategy
+//        as it is not working on LAS routes...
 passport.use(
   new BearerStrategy(function (token, done) {
     findUserByToken(token, function (err, user) {
@@ -34,13 +38,11 @@ passport.use(
     });
   })
 );
-
-const lasApp = await getApp({ postgresConfig: pgConf });
-
 lasApp.use(passport.authenticate("bearer", { session: false }));
 
+// Use Heroku port if available
 const PORT = process.env.PORT || process.env.LAS_PORT;
 
 lasApp.listen(PORT, () => {
-  console.log(`Lightouse agent listening on port ${process.env.LAS_PORT}`);
+  console.log(`Lightouse agent listening on port ${PORT}`);
 });
