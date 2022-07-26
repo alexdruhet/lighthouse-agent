@@ -5,8 +5,18 @@ import passport from "passport";
 import { Strategy as BearerStrategy } from "passport-http-bearer";
 import { findUserByToken } from "./users.js";
 
+let pgConf = {
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  port: process.env.PGPORT,
+  host: process.env.PGHOST,
+};
+if (process.env.DATABASE_URL) {
+  pgConf.ssl = true;
+}
 const { Pool } = pkg;
-const conn = new Pool();
+const conn = new Pool(pgConf);
 
 passport.use(
   new BearerStrategy(function (token, done) {
@@ -22,10 +32,7 @@ passport.use(
   })
 );
 
-const lasApp = await getApp(
-  {},
-  conn
-);
+const lasApp = await getApp({}, conn);
 
 lasApp.use(passport.authenticate("bearer", { session: false }));
 
