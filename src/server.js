@@ -1,6 +1,5 @@
 import "dotenv/config";
 import { getApp } from "@spotify/lighthouse-audit-service";
-import pkg from "pg";
 import passport from "passport";
 import { Strategy as BearerStrategy } from "passport-http-bearer";
 import { findUserByToken } from "./users.js";
@@ -15,8 +14,6 @@ let pgConf = {
 if (process.env.DATABASE_URL) {
   pgConf.ssl = { rejectUnauthorized: false };
 }
-const { Pool } = pkg;
-const conn = new Pool(pgConf);
 
 passport.use(
   new BearerStrategy(function (token, done) {
@@ -32,11 +29,10 @@ passport.use(
   })
 );
 
-const lasApp = await getApp({}, conn);
+const lasApp = await getApp({ postgresConfig: pgConf });
 
 lasApp.use(passport.authenticate("bearer", { session: false }));
 
 lasApp.listen(process.env.LAS_PORT, () => {
   console.log(`Lightouse agent listening on port ${process.env.LAS_PORT}`);
 });
-rejectUnauthorized;
